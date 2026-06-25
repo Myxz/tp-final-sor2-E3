@@ -9,7 +9,7 @@ Tal como lo exige la rúbrica, este repositorio está organizado en los siguient
 * **/configs/**: Contiene el archivo `docker-compose.yml`, los pipelines de configuración de Logstash (`logstash.conf`) y el archivo de configuración del agente (`filebeat.yml`).
 * **/dashboards/**: Contiene el dashboard de seguridad interactivo exportado desde Kibana en formato JSON.
 * **/data/**: Incluye logs de muestra anonimizados generados durante los ataques y la tabla de eventos evaluados.
-* **/informe/**: Contiene el documento PDF con el informe final detallado de la investigación.
+* **informe**: Contiene el documento PDF con el informe final detallado de la investigación.
 
 ## Prerrequisitos del Sistema
 Para desplegar este laboratorio se requiere:
