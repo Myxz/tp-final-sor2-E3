@@ -25,6 +25,9 @@ apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin do
 
 systemctl enable --now docker
 
+groupadd docker || true
+usermod -aG docker $SUDO_USER
+
 # Instalar auditd y Filebeat
 apt install -y auditd
 systemctl enable --now auditd
@@ -35,5 +38,21 @@ echo "deb [signed-by=/usr/share/keyrings/elastic-keyring.gpg] https://artifacts.
 apt-get update -y
 apt-get install -y filebeat
 
+# Respaldar la conf original
+if [ -f /etc/filebeat/filebeat.yml ]; then
+	mv /etc/filebeat/filebeat.yml /etc/filebeat/filebeat.yml.bak
+fi
+
+# Copiar el archivo de la conf personalizada
+cp ./configs/filebeat.yml /etc/filebeat/filebeat.yml
+chmod 600 /etc/filebeat/filebeat.yml
+chown root:root /etc/filebeat/filebeat.yml
+
 filebeat modules enable auditd system
 systemctl enable filebeat
+systemctl restart filebeat
+
+echo "actualizar tu sesión actual ejecutando este comando ahora:"
+echo ""
+echo "    newgrp docker"
+echo ""
